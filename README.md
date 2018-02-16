@@ -1,7 +1,25 @@
 # CarND-Controls-PID
-Self-Driving Car Engineer Nanodegree Program
+## Self-Driving Car Engineer Nanodegree Program
 
 ---
+### Objective: Develop a PID controller that adjusts steering angle to drive a simulated vehicle around a track. The input driven into the controller is the cross track error (CTE) and the velocity (mph).  
+
+
+### Effect of PID
+---
+The PID controller is a functionally simple controller that has very useful and practical applications. It functions by adjusting the control input of a dynamic system in order to converge its future states to a nominal one. The way this is performed is that the control input is dependent on some error between the present state and the nominal state. The control input is then adjusted by the sum of three variables of which each involves the error value. In the case of the driving simulation the error value is the cross track error which is the lateral distance between the current position and the centre line of the road. The three terms that affect the control input are what make up the PID controller and they are as follows:
+
+P - Proportional - -tau_p * cte - This term is the product between a constant and the cross track error which allows the car to direct itself towards the centre. The larger the error, the larger the control input. The constant tau_p determines the magnitude or influence of this term on the control input.
+
+I - Integration - -tau_i * integral or summation of cte - This term is the product between a constant and the integral of the cross track error which directs the car towards the centre if it has behaved in some assymetrical fashion due to either misalignment or process noise. The constant tau_i determines the magnitude of this term on the control input. 
+
+D - Derivative - -tau_d * derivate of cte - This term is the product between a constant and the derivative of the cross track error which directs the car towards the nominal by calculating differences between the rates of change in the cross track error. This is effectively the term that provides damping towards the cyclic nature of the system. When the error is large the difference between the change in error rates will be larger than when it is close which allows the system to converge towards the nominal state.
+
+There are videos uploaded in the videos folder that show the effect of each term added towards the control input.
+
+### Hyperparameters
+The hyperparameters were chosen by fine-tuning as it was found to be the most efficient process if the program received the coefficients as arguments in program start up. The first value that was determined was the proportinal gain - tau_p - where the value was determined based on reasonable steering motion during the initial straight path. However the proportional gain was simply not enough as the vehicle sped up during the initial straight path and hence the system quickly becomes unstable and falls off the track. The integration value appeared to be negligible as it was found that no biases or noise was inherent in the simulation yet a small coefficient was added in the case that it may have an effect. Finally the derivative value was the parameter that was tuned the most in order to find the coefficient that provided the necessary damping to stay on the road and clear turns effectively. The final derivative parameter was identified by increasing the value until an acceptable run was achieved.
+
 
 ## Dependencies
 
